@@ -9,8 +9,8 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "http://localhost:3000", // Local development
-      "https://arvyax-wellness-git-main-soumik-dutta-choudhurys-projects.vercel.app" // Vercel deployment
+      "http://localhost:3000", // Local React frontend
+      "https://arvyax-wellness-git-main-soumik-dutta-choudhurys-projects.vercel.app" // Vercel frontend
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
@@ -27,13 +27,18 @@ connectDB();
 const authRoutes = require("./routes/authRoutes");
 const sessionRoutes = require("./routes/sessionRoutes");
 
-app.use("/", authRoutes);
-app.use("/", sessionRoutes);
+app.use("/api", authRoutes);  // Now routes will be /api/register, /api/login
+app.use("/api", sessionRoutes);
+
+// ✅ Test Route
+app.get("/", (req, res) => {
+  res.send("✅ Backend is running...");
+});
 
 // ✅ Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ MongoDB connected`);
   console.log(`🚀 Server running at http://localhost:${PORT}`);
-  console.log(`📌 Example: POST http://localhost:${PORT}/register`);
+  console.log(`📌 Example: POST http://localhost:${PORT}/api/register`);
 });
