@@ -9,13 +9,14 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "http://localhost:3000", // Local dev
-      /\.vercel\.app$/          // Any deployment under Vercel's domain
+      "http://localhost:3000",        // Local development
+      /\.vercel\.app$/                // Any Vercel subdomain
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   })
 );
+
 
 
 // ✅ Middleware
