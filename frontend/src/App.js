@@ -205,10 +205,6 @@ const Login = () => {
     />
   );
 };
-
-// 🛠 Full-Screen Register
-
-// 🛠 Full-Screen Register
 const Register = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
@@ -225,8 +221,9 @@ const Register = () => {
       });
       const data = await res.json();
       if (res.ok) {
+        localStorage.setItem('token', data.token); // store token
         setMessage('✅ Registration successful! Redirecting...');
-        setTimeout(() => { navigate('/dashboard'); }, 1000); // ✅ SPA navigation
+        setTimeout(() => { navigate('/dashboard'); }, 1000); // ✅ redirect
       } else {
         setMessage(`❌ ${data.msg}`);
       }
