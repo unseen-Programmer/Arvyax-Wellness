@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-do
 import { motion } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
 // 🌟 Stunning Home Page
 const Home = () => (
@@ -170,11 +170,12 @@ const Login = () => {
     e.preventDefault();
     setMessage("⏳ Logging in...");
     try {
-      const res = await fetch("/api/login", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
+      const res = await fetch(`${API_URL}/api/login`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(formData)
+});
+
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem('token', data.token);
@@ -208,11 +209,11 @@ const Register = () => {
     e.preventDefault();
     setMessage("⏳ Registering...");
     try {
-      const res = await fetch("/api/register", {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
+      const res = await fetch(`${API_URL}/api/register`, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(formData)
+});
       const data = await res.json();
       if (res.ok) {
         setMessage('✅ Registration successful! You can now login.');
