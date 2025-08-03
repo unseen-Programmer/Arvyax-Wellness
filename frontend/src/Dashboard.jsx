@@ -6,11 +6,9 @@ const Dashboard = () => {
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
-    // Get user's name from localStorage (set during login/register)
     const storedName = localStorage.getItem("userName") || "User";
     setUserName(storedName);
 
-    // Get current hour
     const hour = new Date().getHours();
     if (hour < 12) {
       setGreeting("Good Morning");
