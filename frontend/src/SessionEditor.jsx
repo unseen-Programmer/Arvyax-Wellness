@@ -1,4 +1,3 @@
-// SessionEditor.jsx
 const SessionEditor = () => (
   <div className="pt-32 px-8 min-h-screen bg-gradient-to-b from-[#A7D6D0] to-[#F0F4EF] font-inter">
     <h2 className="text-4xl font-bold text-[#256363] mb-6">Session Editor ✏️</h2>
