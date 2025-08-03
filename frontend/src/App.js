@@ -212,18 +212,21 @@ const Login = () => {
 const Register = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // ✅ add navigate
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("⏳ Registering...");
     try {
-      const res = await fetch("/api/register", {
+      const res = await fetch(`${API_URL}/api/register`, { // ✅ use API_URL
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage('✅ Registration successful! You can now login.');
+        setMessage('✅ Registration successful! Redirecting...');
+        setTimeout(() => { navigate('/dashboard'); }, 1000); // ✅ SPA navigation
       } else {
         setMessage(`❌ ${data.msg}`);
       }
@@ -231,6 +234,7 @@ const Register = () => {
       setMessage('⚠️ Unable to connect to server.');
     }
   };
+
   return (
     <AuthPage
       title="Create Account"
@@ -243,6 +247,7 @@ const Register = () => {
     />
   );
 };
+
 
 
 // 🔹 Shared Auth Page
