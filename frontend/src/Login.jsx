@@ -1,4 +1,3 @@
-// Login.jsx
 const Login = () => (
   <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#A7D6D0] to-[#D1E8E2] px-4">
     <div className="bg-white/50 backdrop-blur-lg rounded-3xl shadow-2xl p-10 w-full max-w-md text-center animate-fadeInUp">
