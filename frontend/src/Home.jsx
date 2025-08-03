@@ -1,4 +1,3 @@
-// Home.jsx
 const Home = () => (
   <div className="pt-32 px-8 min-h-screen bg-gradient-to-b from-[#A7D6D0] to-[#F0F4EF] font-inter">
     <div className="text-center mb-10">
