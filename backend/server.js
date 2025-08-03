@@ -9,13 +9,14 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "http://localhost:3000", // Local React frontend
-      "https://arvyax-wellness-pkwl.vercel.app" // Full Vercel frontend domain
+      "http://localhost:3000", // Local dev
+      /\.vercel\.app$/          // Any deployment under Vercel's domain
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   })
 );
+
 
 // ✅ Middleware
 app.use(express.json());
