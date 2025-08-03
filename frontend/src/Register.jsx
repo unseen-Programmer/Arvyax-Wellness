@@ -12,7 +12,6 @@ const Register = () => {
       const res = await fetch("http://localhost:5000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // Backend does not use fullName yet, but we can send it for later
         body: JSON.stringify({ email, password })
       });
 
