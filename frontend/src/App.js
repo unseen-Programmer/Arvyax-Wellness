@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './App.css';
 import Dashboard from './Dashboard';
-import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, NavLink, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 
-const API_URL = process.env.REACT_APP_API_URL;
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000"; // ✅ Default for local dev
 
 // 🌟 Stunning Home Page
 const Home = () => (
@@ -166,11 +166,13 @@ const SessionEditor = () => {
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("⏳ Logging in...");
     try {
-      const res = await fetch("/api/login", {
+      const res = await fetch(`${API_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -179,7 +181,7 @@ const Login = () => {
       if (res.ok) {
         localStorage.setItem('token', data.token);
         setMessage('✅ Login successful! Redirecting...');
-        setTimeout(() => { window.location.href = '/dashboard'; }, 1000);
+        setTimeout(() => { navigate('/dashboard'); }, 1000);
       } else {
         setMessage(`❌ ${data.msg}`);
       }
@@ -187,6 +189,7 @@ const Login = () => {
       setMessage('⚠️ Unable to connect to server.');
     }
   };
+
   return (
     <AuthPage
       title="Welcome Back"
@@ -204,18 +207,22 @@ const Login = () => {
 const Register = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("⏳ Registering...");
     try {
-      const res = await fetch("/api/register", {
+      const res = await fetch(`${API_URL}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
       const data = await res.json();
       if (res.ok) {
-        setMessage('✅ Registration successful! You can now login.');
+        localStorage.setItem('token', data.token);
+        setMessage('✅ Registration successful! Redirecting...');
+        setTimeout(() => { navigate('/dashboard'); }, 1000);
       } else {
         setMessage(`❌ ${data.msg}`);
       }
@@ -223,6 +230,7 @@ const Register = () => {
       setMessage('⚠️ Unable to connect to server.');
     }
   };
+
   return (
     <AuthPage
       title="Create Account"
