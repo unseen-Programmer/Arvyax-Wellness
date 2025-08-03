@@ -7,9 +7,9 @@ import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContai
 
 const API_URL =
   process.env.REACT_APP_API_URL ||
-  "https://arvyax-wellness.onrender.com"; // ✅ Default for production
+  "https://arvyax-wellness.onrender.com"; 
 
-// 🌟 Stunning Home Page
+
 const Home = () => (
   <div className="pt-32 min-h-screen bg-gradient-to-b from-[#A7D6D0] to-[#F0F4EF] font-inter relative overflow-hidden">
     <div className="absolute -top-20 -left-20 w-72 h-72 bg-[#7BC6C4] rounded-full blur-3xl opacity-30 animate-pulse"></div>
@@ -56,7 +56,6 @@ const Home = () => (
   </div>
 );
 
-// 📊 My Sessions
 const MySessions = () => {
   const data = [
     { day: 'Mon', sessions: 2 },
@@ -92,7 +91,6 @@ const MySessions = () => {
   );
 };
 
-// ✨ Session Editor
 const SessionEditor = () => {
   const activities = [
     { title: "🧘 Yoga", desc: "Boost flexibility & inner peace", color: "from-[#FDE68A] to-[#FCA5A5]" },
@@ -164,7 +162,7 @@ const SessionEditor = () => {
   );
 };
 
-// 🛠 Full-Screen Login
+//  Login
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
@@ -205,7 +203,7 @@ const Login = () => {
   );
 };
 
-// 🛠 Full-Screen Register
+//  Register
 const Register = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
@@ -246,7 +244,7 @@ const Register = () => {
   );
 };
 
-// 🔹 Shared Auth Page
+
 const AuthPage = ({ title, subtitle, formData, setFormData, message, handleSubmit, isRegister }) => (
   <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#A7D6D0] via-[#7BC6C4] to-[#256363]">
     <motion.div className="absolute w-96 h-96 bg-[#ffffff33] rounded-full blur-3xl"
@@ -290,7 +288,7 @@ const AuthPage = ({ title, subtitle, formData, setFormData, message, handleSubmi
   </div>
 );
 
-// Navbar
+
 function Navbar() {
   const links = [
     { to: '/', label: 'Home' },
