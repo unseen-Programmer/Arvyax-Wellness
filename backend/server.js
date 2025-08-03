@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const connectDB = require("./config/db"); // MongoDB connection function
+const connectDB = require("./config/db");
 
 const app = express();
 
@@ -10,14 +10,14 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000", // Local React frontend
-      "https://arvyax-wellness-git-main-soumik-dutta-choudhurys-projects.vercel.app" // Vercel frontend
+      "https://arvyax-wellness-pkwl.vercel.app" // Full Vercel frontend domain
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   })
 );
 
-// ✅ Middleware to parse JSON requests
+// ✅ Middleware
 app.use(express.json());
 
 // ✅ Connect to MongoDB
@@ -27,10 +27,10 @@ connectDB();
 const authRoutes = require("./routes/authRoutes");
 const sessionRoutes = require("./routes/sessionRoutes");
 
-app.use("/api", authRoutes);  // Now routes will be /api/register, /api/login
+app.use("/api", authRoutes);  
 app.use("/api", sessionRoutes);
 
-// ✅ Test Route
+// ✅ Test route
 app.get("/", (req, res) => {
   res.send("✅ Backend is running...");
 });
