@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-do
 import { motion } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 
-const API_URL = "https://arvyax-wellness.onrender.com";
+// const API_URL = "https://arvyax-wellness.onrender.com";
 
 // 🌟 Stunning Home Page
 const Home = () => (
@@ -170,7 +170,7 @@ const Login = () => {
     e.preventDefault();
     setMessage("⏳ Logging in...");
     try {
-      const res = await fetch(`${API_URL}/login`, {
+      const res = await fetch("/api/login", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -208,7 +208,7 @@ const Register = () => {
     e.preventDefault();
     setMessage("⏳ Registering...");
     try {
-      const res = await fetch(`${API_URL}/register`, {
+      const res = await fetch("/api/register", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -304,10 +304,9 @@ function Navbar() {
             key={link.to}
             to={link.to}
             className={({ isActive }) =>
-              `px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${
-                isActive
-                  ? 'bg-gradient-to-r from-[#7BC6C4] to-[#A7D6D0] text-[#256363] shadow-md'
-                  : 'text-[#256363] hover:bg-gradient-to-r hover:from-[#A7D6D0] hover:to-[#D1E8E2] hover:shadow-lg'
+              `px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${isActive
+                ? 'bg-gradient-to-r from-[#7BC6C4] to-[#A7D6D0] text-[#256363] shadow-md'
+                : 'text-[#256363] hover:bg-gradient-to-r hover:from-[#A7D6D0] hover:to-[#D1E8E2] hover:shadow-lg'
               }`
             }
           >
