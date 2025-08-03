@@ -8,17 +8,14 @@ const connectDB = require("./config/db");
 
 const app = express();
 
-// ✅ Allowed Origins
 const allowedOrigins = [
-  "http://localhost:3000",                        // Local development
-  "https://arvyax-wellness-tawny.vercel.app"      // Vercel deployed frontend
+  "http://localhost:3000",                        
+  "https://arvyax-wellness-tawny.vercel.app"      
 ];
 
-// ✅ CORS Middleware
 app.use(
   cors({
     origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl)
       if (!origin) return callback(null, true);
       if (allowedOrigins.includes(origin)) {
         return callback(null, true);
@@ -31,25 +28,20 @@ app.use(
   })
 );
 
-// ✅ Middleware
 app.use(express.json());
 
-// ✅ Connect to MongoDB
 connectDB();
 
-// ✅ Routes
 const authRoutes = require("./routes/authRoutes");
 const sessionRoutes = require("./routes/sessionRoutes");
 
 app.use("/api", authRoutes);  
 app.use("/api", sessionRoutes);
 
-// ✅ Test route
 app.get("/", (req, res) => {
   res.send("✅ Backend is running...");
 });
 
-// ✅ Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`✅ MongoDB connected`);
