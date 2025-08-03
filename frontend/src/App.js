@@ -5,7 +5,9 @@ import { BrowserRouter as Router, Routes, Route, NavLink, useNavigate } from 're
 import { motion } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000"; // ✅ Default for local dev
+const API_URL =
+  process.env.REACT_APP_API_URL ||
+  "https://arvyax-wellness.onrender.com"; // ✅ Default for production
 
 // 🌟 Stunning Home Page
 const Home = () => (
