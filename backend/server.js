@@ -1,3 +1,6 @@
+import cors from "cors";
+
+
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
@@ -5,19 +8,28 @@ const connectDB = require("./config/db");
 
 const app = express();
 
-// ✅ Allow requests from local dev + Vercel deployed frontend
+// ✅ Allowed Origins
+const allowedOrigins = [
+  "http://localhost:3000",                        // Local development
+  "https://arvyax-wellness-tawny.vercel.app"      // Vercel deployed frontend
+];
+
+// ✅ CORS Middleware
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000",        // Local development
-      /\.vercel\.app$/                // Any Vercel subdomain
-    ],
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
   })
 );
-
-
 
 // ✅ Middleware
 app.use(express.json());
