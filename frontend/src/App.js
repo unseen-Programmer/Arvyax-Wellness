@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-do
 import { motion } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
 
+const API_URL = "https://arvyax-wellness.onrender.com";
+
 // 🌟 Stunning Home Page
 const Home = () => (
   <div className="pt-32 min-h-screen bg-gradient-to-b from-[#A7D6D0] to-[#F0F4EF] font-inter relative overflow-hidden">
@@ -164,12 +166,11 @@ const SessionEditor = () => {
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("⏳ Logging in...");
     try {
-      const res = await fetch('http://localhost:5000/login', {
+      const res = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -203,12 +204,11 @@ const Login = () => {
 const Register = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("⏳ Registering...");
     try {
-      const res = await fetch('http://localhost:5000/register', {
+      const res = await fetch(`${API_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -236,10 +236,9 @@ const Register = () => {
   );
 };
 
-// 🔹 Shared Auth Page Component for Login/Register
+// 🔹 Shared Auth Page
 const AuthPage = ({ title, subtitle, formData, setFormData, message, handleSubmit, isRegister }) => (
   <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-[#A7D6D0] via-[#7BC6C4] to-[#256363]">
-    {/* Animated blobs */}
     <motion.div className="absolute w-96 h-96 bg-[#ffffff33] rounded-full blur-3xl"
       animate={{ x: [0, 50, 0], y: [0, 50, 0] }}
       transition={{ repeat: Infinity, duration: 6 }}
@@ -250,7 +249,6 @@ const AuthPage = ({ title, subtitle, formData, setFormData, message, handleSubmi
       transition={{ repeat: Infinity, duration: 8 }}
       style={{ bottom: "-150px", right: "-150px" }}
     />
-    {/* Form */}
     <motion.form
       onSubmit={handleSubmit}
       initial={{ scale: 0.8, opacity: 0 }}
