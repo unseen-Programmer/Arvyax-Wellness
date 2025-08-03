@@ -4,8 +4,8 @@ import Dashboard from './Dashboard';
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer } from 'recharts';
-
-const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+import { useNavigate } from 'react-router-dom'; 
+const API_URL = process.env.REACT_APP_API_URL;
 
 // 🌟 Stunning Home Page
 const Home = () => (
@@ -163,24 +163,26 @@ const SessionEditor = () => {
 };
 
 // 🛠 Full-Screen Login
+
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // ⬅ add this line
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("⏳ Logging in...");
     try {
       const res = await fetch(`${API_URL}/api/login`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(formData)
-});
-
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem('token', data.token);
         setMessage('✅ Login successful! Redirecting...');
-        setTimeout(() => { window.location.href = '/dashboard'; }, 1000);
+        setTimeout(() => { navigate('/dashboard'); }, 1000); // ✅ SPA navigation
       } else {
         setMessage(`❌ ${data.msg}`);
       }
@@ -188,6 +190,9 @@ const Login = () => {
       setMessage('⚠️ Unable to connect to server.');
     }
   };
+
+
+
   return (
     <AuthPage
       title="Welcome Back"
@@ -202,6 +207,8 @@ const Login = () => {
 };
 
 // 🛠 Full-Screen Register
+
+// 🛠 Full-Screen Register
 const Register = () => {
   const [formData, setFormData] = useState({ name: '', email: '', password: '' });
   const [message, setMessage] = useState('');
@@ -209,11 +216,11 @@ const Register = () => {
     e.preventDefault();
     setMessage("⏳ Registering...");
     try {
-      const res = await fetch(`${API_URL}/api/register`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify(formData)
-});
+      const res = await fetch("/api/register", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
       const data = await res.json();
       if (res.ok) {
         setMessage('✅ Registration successful! You can now login.');
@@ -236,6 +243,7 @@ const Register = () => {
     />
   );
 };
+
 
 // 🔹 Shared Auth Page
 const AuthPage = ({ title, subtitle, formData, setFormData, message, handleSubmit, isRegister }) => (
