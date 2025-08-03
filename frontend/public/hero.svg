@@ -1,0 +1,5 @@
+<svg width="400" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="200" cy="100" rx="180" ry="80" fill="#90cdf4"/>
+  <circle cx="200" cy="100" r="60" fill="#3182ce"/>
+  <text x="200" y="110" text-anchor="middle" font-size="32" fill="#fff" font-family="Segoe UI, Arial">Wellness</text>
+</svg>
