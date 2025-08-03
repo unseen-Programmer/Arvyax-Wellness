@@ -1,4 +1,3 @@
-// Simple auth utility
 export function setToken(token) {
     localStorage.setItem('jwt', token);
 }
